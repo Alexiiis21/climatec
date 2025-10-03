@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import Image from "next/image";
+import { useEffect, useRef } from "react";
 import useEmblaCarousel from "embla-carousel-react";
+import Autoplay from "embla-carousel-autoplay";
+import Image from "next/image";
 
 interface Brand {
   name: string;
@@ -14,51 +15,45 @@ interface BrandCarouselProps {
 }
 
 export default function BrandCarousel({ brands }: BrandCarouselProps) {
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    align: "start",
-    loop: true,
-    dragFree: true,
-    containScroll: "trimSnaps",
-  });
+  const autoplayOptions = useRef(
+    Autoplay({ delay: 2000, stopOnInteraction: false, stopOnMouseEnter: true })
+  );
 
-  const [autoplayInterval, setAutoplayInterval] = useState<NodeJS.Timeout | null>(null);
-
-  useEffect(() => {
-    if (!autoplayInterval) {
-      const interval = setInterval(() => {
-        if (emblaApi) {
-          emblaApi.scrollNext();
-        }
-      }, 3000);
-      setAutoplayInterval(interval);
-    }
-    
-    return () => {
-      if (autoplayInterval) {
-        clearInterval(autoplayInterval);
-      }
-    };
-  }, [emblaApi, autoplayInterval]);
+  const [emblaRef] = useEmblaCarousel(
+    { 
+      loop: true,
+      align: "start",
+      dragFree: true,
+    },
+    [autoplayOptions.current]
+  );
 
   return (
-    <div className="overflow-hidden" ref={emblaRef}>
-      <div className="flex">
-        {brands.map((brand, index) => (
-          <div 
-            key={index} 
-            className="flex-grow-0 flex-shrink-0 w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5 px-4"
-          >
-            <div className="bg-white p-6 rounded-lg shadow-sm h-32 flex items-center justify-center">
-              <Image 
-                src={brand.logo} 
-                alt={brand.name} 
-                width={120} 
-                height={60} 
-                className="max-h-16 w-auto object-contain grayscale hover:grayscale-0 transition-all"
-              />
+    <div className="relative w-full overflow-hidden">
+      {/* Gradiente de desvanecido izquierdo */}
+      <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-[#0a1b25] to-transparent z-10 pointer-events-none" />
+      
+      {/* Gradiente de desvanecido derecho */}
+      <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-[#0a1b25] to-transparent z-10 pointer-events-none" />
+      
+      <div className="overflow-hidden" ref={emblaRef}>
+        <div className="flex gap-12">
+          {[...brands, ...brands, ...brands].map((brand, index) => (
+            <div
+              key={`${brand.name}-${index}`}
+              className="flex-[0_0_200px] min-w-0 flex items-center justify-center"
+            >
+              <div className="relative w-full h-24 grayscale hover:grayscale-0 transition-all duration-300 opacity-70 hover:opacity-100">
+                <Image
+                  src={brand.logo}
+                  alt={brand.name}
+                  fill
+                  className="object-contain"
+                />
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );
