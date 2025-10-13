@@ -1,6 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
-import { Phone, Mail, MapPin, Facebook, Instagram, Linkedin } from "lucide-react";
+import { Phone, Mail, MapPin } from "lucide-react";
 
 const Footer = () => {
   return (
