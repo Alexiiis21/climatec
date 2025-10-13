@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build --turbopack",
+    "build": "cross-env NODE_ENV=production next build --turbopack && C:\\Users\\aleri\\Downloads\\gh_2.81.0_windows_amd64\\bin\\gh.exe workflow run nextjs.yml",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "cross-env NODE_ENV=development eslint ."
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.3",
@@ -27,6 +27,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "cross-env": "^10.1.0",
     "eslint": "^9",
     "eslint-config-next": "15.5.3",
     "tailwindcss": "^4",
