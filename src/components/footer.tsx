@@ -16,17 +16,6 @@ const Footer = () => {
               Especialistas en climatización, ventilación, extracción y sistemas de refrigeración
               con más de 15 años de experiencia en el mercado.
             </p>
-            <div className="flex space-x-4">
-              <a href="#" className="hover:text-white transition-colors">
-                <Facebook size={20} />
-              </a>
-              <a href="#" className="hover:text-white transition-colors">
-                <Instagram size={20} />
-              </a>
-              <a href="#" className="hover:text-white transition-colors">
-                <Linkedin size={20} />
-              </a>
-            </div>
           </div>
 
           {/* Quick Links */}
