@@ -10,10 +10,10 @@ const compat = new FlatCompat({
 });
 
 // Condición basada en NODE_ENV
-const disableEslint = process.env.DISABLE_ESLINT_IN_PROD === 'true' && process.env.NODE_ENV === 'production';
+const isProduction = process.env.NODE_ENV === 'production';
 
-const eslintConfig = disableEslint
-  ? [] // Desactiva ESLint
+const eslintConfig = isProduction
+  ? [] // Desactiva ESLint en producción
   : [
       ...compat.extends("next/core-web-vitals", "next/typescript"),
       {
