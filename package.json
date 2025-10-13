@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "cross-env NODE_ENV=production next build --turbopack && C:\\Users\\aleri\\Downloads\\gh_2.81.0_windows_amd64\\bin\\gh.exe workflow run nextjs.yml",
+    "build": "cross-env NODE_ENV=production next build --turbopack",
     "start": "next start",
     "lint": "cross-env NODE_ENV=development eslint ."
   },
